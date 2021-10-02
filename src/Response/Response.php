@@ -7,6 +7,7 @@ namespace Redbitcz\MerkApi\Response;
 class Response implements IResponse
 {
     private string $content;
+
     /** @var array<string, array<int, string>> */
     private array $headers;
     private int $statusCode;
@@ -26,7 +27,9 @@ class Response implements IResponse
         return $this->content;
     }
 
-    /** @return array<string, array<int, string>> */
+    /**
+     * @return array<string, array<int, string>>
+     */
     public function getHeaders(): array
     {
         return $this->headers;

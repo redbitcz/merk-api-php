@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Redbitcz\MerkApi;
 
-
 use JsonException;
 use Redbitcz\MerkApi\Exception\AccessDeniedException;
 use Redbitcz\MerkApi\Exception\ConnectionException;
@@ -20,7 +19,7 @@ use Redbitcz\MerkApi\Response\Response;
 
 class Client
 {
-    private const USER_AGENT = 'Redbitcz Merk API client)';
+    private const USER_AGENT = 'Merk.cz API client for PHP (https://github.com/redbitcz/merk-api-php/)';
 
     private Credentials $credentials;
 
@@ -110,7 +109,7 @@ class Client
 
         curl_setopt($curl, CURLOPT_HTTPHEADER, $requestHeaders);
 
-        $this->connectCaBundle($curl);
+        $this->injectCaBundle($curl);
 
         $responseContent = curl_exec($curl);
         if ($error = curl_error($curl)) {
@@ -184,10 +183,10 @@ class Client
 
     /**
      * @param resource $curl Curl resource
-     * @noinspection PhpUndefinedClassInspection CA bundle suggested only.
-     * @noinspection PhpUndefinedNamespaceInspection CA bundle suggested only.
+     * @noinspection PhpUndefinedClassInspection Package `CaBundle` may not exists - only suggested dependency
+     * @noinspection PhpUndefinedNamespaceInspection Package `CaBundle` may not exists - only suggested dependency
      */
-    private function connectCaBundle($curl): void
+    private function injectCaBundle($curl): void
     {
         if (class_exists(Composer\CaBundle\CaBundle::class, true) === false) {
             return;

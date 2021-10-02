@@ -6,11 +6,17 @@ namespace Redbitcz\MerkApi\Response;
 
 interface IResponse
 {
-    /** @return string|array<int, mixed> */
+    /**
+     * @return string|array<int, mixed>
+     */
     public function getContent();
 
-    /** @return array<string, array<int, string>> */
+    /**
+     * @return array<string, array<int, string>>
+     */
     public function getHeaders(): array;
+
+    public function getHeaderValue(string $name): ?string;
 
     public function getStatusCode(): int;
 }

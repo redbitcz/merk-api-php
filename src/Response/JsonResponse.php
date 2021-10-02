@@ -8,6 +8,7 @@ class JsonResponse implements IResponse
 {
     /** @var array<int|string, mixed> */
     private array $content;
+
     /** @var array<string, array<int, string>> */
     private array $headers;
     private int $statusCode;
@@ -23,21 +24,29 @@ class JsonResponse implements IResponse
         $this->statusCode = $statusCode;
     }
 
-    /** @return array<int|string, mixed> */
+    /**
+     * @return array<int|string, mixed>
+     */
     public function getContent(): array
     {
         return $this->content;
     }
 
-    /** @return array<string, array<int, string>> */
+    /**
+     * @return array<string, array<int, string>>
+     */
     public function getHeaders(): array
     {
         return $this->headers;
+    }
+
+    public function getHeaderValue(string $name): ?string
+    {
+        return $this->headers[$name][0] ?? null;
     }
 
     public function getStatusCode(): int
     {
         return $this->statusCode;
     }
-
 }
