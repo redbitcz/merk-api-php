@@ -6,12 +6,6 @@ namespace Redbitcz\MerkApi;
 
 use Redbitcz\MerkApi\Response\IResponse;
 
-/**
- * @package Redbitcz\MerkApi
- * @license MIT
- * @copyright 2016-2021 Redbit s.r.o.
- * @author Redbit s.r.o. <info@redbit.cz>
- */
 class Merk
 {
     private Client $client;
@@ -21,9 +15,8 @@ class Merk
         $this->client = $client;
     }
 
-    public function getCompanyByIc(string $string): IResponse
+    public function getCompanyByRegNo(string $ic): IResponse
     {
-        return $this->client->requestGet('company/?regno=' . $string);
+        return $this->client->requestGet('company/', ['regno'=> $ic]);
     }
 }
-

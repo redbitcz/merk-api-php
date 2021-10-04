@@ -6,5 +6,4 @@ namespace Redbitcz\MerkApi\Exception;
 
 class UnexpectedResponseException extends ResponseException
 {
-
 }

@@ -1,8 +1,8 @@
 {
   "name": "redbitcz/merk-api",
-  "description": "Merk API",
+  "description": "Merk.cz API client for PHP",
   "type": "library",
-  "license": "proprietary",
+  "license": ["MIT"],
   "authors": [
     {
       "name": "Redbit s.r.o.",
@@ -14,21 +14,19 @@
     },
     {
       "name": "Jakub Bouček",
-      "email": "jakub.boucek@redbit.cz"
+      "email": "pan@jakubboucek.cz"
     }
   ],
   "require": {
     "php": ">=7.4.0",
-    "psr/log": "^1.1",
     "ext-curl": "*",
-    "ext-json": "*"
+    "ext-json": "*",
+    "psr/log": "^1.1"
   },
   "require-dev": {
-    "phpstan/phpstan": "^0.12.71",
-    "nette/tester": "^2.3"
+    "phpstan/phpstan": "^0.12.71"
   },
   "suggest": {
-    "ext-pcntl": "Needed to support Unix-based process signals handling",
     "composer/ca-bundle": "Provide secure way to fix SSL error (SSL certificate problem: Invalid certificate)"
   },
   "autoload": {
@@ -36,13 +34,7 @@
       "Redbitcz\\MerkApi\\": "src/"
     }
   },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests/"
-    }
-  },
   "scripts": {
-    "phpstan": "phpstan analyze src/ tests/ --level 6",
-    "test": "tester tests/ -s"
+    "phpstan": "phpstan analyze src/ --level 6"
   }
 }

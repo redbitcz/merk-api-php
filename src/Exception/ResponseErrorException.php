@@ -4,22 +4,21 @@ declare(strict_types=1);
 
 namespace Redbitcz\MerkApi\Exception;
 
-use Redbitcz\MerkApi\Response\Response;
+use Redbitcz\MerkApi\Response\IResponse;
 use Throwable;
 
 class ResponseErrorException extends NetworkException
 {
-    private Response $response;
+    private IResponse $response;
 
-    public function __construct(string $message, int $code, Response $response, ?Throwable $previous = null)
+    public function __construct(string $message, int $code, IResponse $response, ?Throwable $previous = null)
     {
         $this->response = $response;
         parent::__construct($message, $code, $previous);
     }
 
-    public function getResponse(): Response
+    public function getResponse(): IResponse
     {
         return $this->response;
     }
-
 }
