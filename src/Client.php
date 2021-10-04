@@ -8,14 +8,10 @@ use JsonException;
 use Redbitcz\MerkApi\Exception\AccessDeniedException;
 use Redbitcz\MerkApi\Exception\ConnectionException;
 use Redbitcz\MerkApi\Exception\InvalidRequestException;
-use Redbitcz\MerkApi\Exception\InvalidResponseException;
 use Redbitcz\MerkApi\Exception\NotFoundException;
 use Redbitcz\MerkApi\Exception\ResponseErrorException;
 use Redbitcz\MerkApi\Exception\UnauthorizedException;
 use Redbitcz\MerkApi\Exception\UnexpectedResponseException;
-use Redbitcz\MerkApi\Response\IResponse;
-use Redbitcz\MerkApi\Response\JsonResponse;
-use Redbitcz\MerkApi\Response\Response;
 
 class Client
 {
@@ -31,7 +27,7 @@ class Client
     /**
      * @param array<string, string> $query
      */
-    public function requestGet(string $urlPath, array $query = []): IResponse
+    public function requestGet(string $urlPath, array $query = []): Response
     {
         return $this->processRequest('GET', $urlPath, [], $query);
     }
@@ -40,7 +36,7 @@ class Client
      * @param array<string, string> $query
      * @param array<int|string, mixed> $post
      */
-    public function requestPost(string $urlPath, array $post = [], array $query = []): IResponse
+    public function requestPost(string $urlPath, array $post = [], array $query = []): Response
     {
         return $this->processRequest('POST', $urlPath, $post, $query);
     }
@@ -49,7 +45,7 @@ class Client
      * @param array<int|string, mixed> $post
      * @param array<string, string> $query
      */
-    public function requestPut(string $urlPath, array $post = [], array $query = []): IResponse
+    public function requestPut(string $urlPath, array $post = [], array $query = []): Response
     {
         return $this->processRequest('PUT', $urlPath, $post, $query);
     }
@@ -58,7 +54,7 @@ class Client
      * @param array<int|string, mixed> $post
      * @param array<string, string> $query
      */
-    public function requestDelete(string $urlPath, array $post = [], array $query = []): IResponse
+    public function requestDelete(string $urlPath, array $post = [], array $query = []): Response
     {
         return $this->processRequest('DELETE', $urlPath, $post, $query);
     }
@@ -72,7 +68,7 @@ class Client
         string $urlPath,
         array $post = [],
         array $query = []
-    ): JsonResponse {
+    ): Response {
         $requestHeaders = [];
         $responseHeaders = [];
 
@@ -121,30 +117,24 @@ class Client
         $response = new Response((string)$responseContent, $responseHeaders, curl_getinfo($curl, CURLINFO_HTTP_CODE));
         curl_close($curl);
 
+        if ($response->isEmpty()) {
+            return $response;
+        }
+
         if ($response->getStatusCode() >= 400) {
             throw $this->createResponseErrorException($response);
         }
 
-        if (empty($response->getContent())) {
-            return new JsonResponse([], $response->getHeaders(), $response->getStatusCode());
-        }
-
-        if ($response->getHeaderValue('content-type') !== 'application/json') {
+        if ($response->isJson() === false) {
             $type = $response->getHeaderValue('content-type') ?? 'undefined';
             throw new UnexpectedResponseException(
-                "Expected JSON response, '{$type}' type response instead",
+                "Expected JSON response, got '{$type}' type response instead",
                 0,
                 $response
             );
         }
 
-        try {
-            $data = json_decode($response->getContent(), true, 512, JSON_THROW_ON_ERROR);
-        } catch (JsonException $e) {
-            throw new InvalidResponseException($e->getMessage(), $e->getCode(), $response, $e);
-        }
-
-        return new JsonResponse($data, $response->getHeaders(), $response->getStatusCode());
+        return $response;
     }
 
     /**
@@ -182,7 +172,7 @@ class Client
     }
 
     /**
-     * @param resource $curl Curl resource
+     * @param resource|\CurlHandle $curl Curl resource
      * @noinspection PhpUndefinedClassInspection Package `CaBundle` may not exists - only suggested dependency
      * @noinspection PhpUndefinedNamespaceInspection Package `CaBundle` may not exists - only suggested dependency
      */

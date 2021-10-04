@@ -14,6 +14,9 @@ $response = $merk->getCompanyByRegNo($ico);
 
 if ($response->getStatusCode() === 200) {
     /** @noinspection ForgottenDebugOutputInspection */
-    print_r($response->getContent());
+    print_r($response->getJson());
+} else {
+    echo "Error!\n" . $response->getContent();
+    exit (1);
 }
 
