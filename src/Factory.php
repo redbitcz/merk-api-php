@@ -6,7 +6,7 @@ namespace Redbitcz\MerkApi;
 
 class Factory
 {
-    public static function create(string $apiKey, string $url = Credentials::DEFAULT_URL): Merk
+    public static function createMerk(string $apiKey, string $url = Credentials::DEFAULT_URL): Merk
     {
         $credentials = new Credentials($apiKey, $url);
         $client = new Client($credentials);

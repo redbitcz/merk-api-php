@@ -14,10 +14,10 @@ For more info about API follow [documentation](https://api.merk.cz/docs/)
 composer install redbitcz/merk-api
 ```
 
-## Usage 
+## Usage
 
 ```php
-$merk = \Redbitcz\MerkApi\Factory::create('YOUR_API_KEY');
+$merk = \Redbitcz\MerkApi\Factory::createMerk('YOUR_API_KEY');
 $data = $merk->getCompanyByIc('24197190');
 ```
 This call returns array like:

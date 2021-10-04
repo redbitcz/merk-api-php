@@ -9,7 +9,7 @@ include '../vendor/autoload.php';
 $apiKey = 'lt32.................O0M0';
 $ico = '1234567';
 
-$merk = Factory::create($apiKey);
+$merk = Factory::createMerk($apiKey);
 $response = $merk->getCompanyByIc($ico);
 
 if ($response->getStatusCode() === 200) {
