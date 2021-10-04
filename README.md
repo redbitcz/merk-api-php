@@ -18,7 +18,7 @@ composer install redbitcz/merk-api
 
 ```php
 $merk = \Redbitcz\MerkApi\Factory::createMerk('YOUR_API_KEY');
-$data = $merk->getCompanyByIc('24197190');
+$data = $merk->getCompanyByRegNo('24197190');
 ```
 This call returns array like:
 

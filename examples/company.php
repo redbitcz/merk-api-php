@@ -10,7 +10,7 @@ $apiKey = 'lt32.................O0M0';
 $ico = '1234567';
 
 $merk = Factory::createMerk($apiKey);
-$response = $merk->getCompanyByIc($ico);
+$response = $merk->getCompanyByRegNo($ico);
 
 if ($response->getStatusCode() === 200) {
     /** @noinspection ForgottenDebugOutputInspection */

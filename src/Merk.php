@@ -15,7 +15,7 @@ class Merk
         $this->client = $client;
     }
 
-    public function getCompanyByIc(string $ic): IResponse
+    public function getCompanyByRegNo(string $ic): IResponse
     {
         return $this->client->requestGet('company/', ['regno'=> $ic]);
     }
