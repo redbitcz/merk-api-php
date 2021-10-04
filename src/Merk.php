@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Redbitcz\MerkApi;
 
-use Redbitcz\MerkApi\Response\IResponse;
+use Redbitcz\MerkApi\Response\JsonResponse;
 
 class Merk
 {
@@ -15,8 +15,8 @@ class Merk
         $this->client = $client;
     }
 
-    public function getCompanyByRegNo(string $ic): IResponse
+    public function getCompanyByRegNo(string $ic): JsonResponse
     {
-        return $this->client->requestGet('company/', ['regno'=> $ic]);
+        return $this->client->requestGet('company/', ['regno' => $ic]);
     }
 }

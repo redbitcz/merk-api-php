@@ -13,7 +13,6 @@ use Redbitcz\MerkApi\Exception\NotFoundException;
 use Redbitcz\MerkApi\Exception\ResponseErrorException;
 use Redbitcz\MerkApi\Exception\UnauthorizedException;
 use Redbitcz\MerkApi\Exception\UnexpectedResponseException;
-use Redbitcz\MerkApi\Response\IResponse;
 use Redbitcz\MerkApi\Response\JsonResponse;
 use Redbitcz\MerkApi\Response\Response;
 
@@ -31,7 +30,7 @@ class Client
     /**
      * @param array<string, string> $query
      */
-    public function requestGet(string $urlPath, array $query = []): IResponse
+    public function requestGet(string $urlPath, array $query = []): JsonResponse
     {
         return $this->processRequest('GET', $urlPath, [], $query);
     }
@@ -40,7 +39,7 @@ class Client
      * @param array<string, string> $query
      * @param array<int|string, mixed> $post
      */
-    public function requestPost(string $urlPath, array $post = [], array $query = []): IResponse
+    public function requestPost(string $urlPath, array $post = [], array $query = []): JsonResponse
     {
         return $this->processRequest('POST', $urlPath, $post, $query);
     }
@@ -49,7 +48,7 @@ class Client
      * @param array<int|string, mixed> $post
      * @param array<string, string> $query
      */
-    public function requestPut(string $urlPath, array $post = [], array $query = []): IResponse
+    public function requestPut(string $urlPath, array $post = [], array $query = []): JsonResponse
     {
         return $this->processRequest('PUT', $urlPath, $post, $query);
     }
@@ -58,7 +57,7 @@ class Client
      * @param array<int|string, mixed> $post
      * @param array<string, string> $query
      */
-    public function requestDelete(string $urlPath, array $post = [], array $query = []): IResponse
+    public function requestDelete(string $urlPath, array $post = [], array $query = []): JsonResponse
     {
         return $this->processRequest('DELETE', $urlPath, $post, $query);
     }
