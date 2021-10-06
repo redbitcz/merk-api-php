@@ -7,11 +7,11 @@ namespace Redbitcz\MerkApi\Exception;
 use Redbitcz\MerkApi\Response;
 use Throwable;
 
-class ResponseException extends RuntimeException
+class InvalidResponseAccessException extends LogicException
 {
     private Response $response;
 
-    public function __construct(string $message, int $code, Response $response, ?Throwable $previous = null)
+    public function __construct(string $message, Response $response, int $code = 0, ?Throwable $previous = null)
     {
         $this->response = $response;
         parent::__construct($message, $code, $previous);

@@ -12,8 +12,11 @@ $ico = '1234567';
 $merk = Factory::createMerk($apiKey);
 $response = $merk->getCompanyByRegNo($ico);
 
-if ($response->getStatusCode() === 200) {
+if ($response->isOk()) {
     /** @noinspection ForgottenDebugOutputInspection */
-    print_r($response->getContent());
+    print_r($response->getJsonContent());
+} else {
+    echo "Error!\n" . $response->getContent();
+    exit (1);
 }
 

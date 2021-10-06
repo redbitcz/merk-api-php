@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Redbitcz\MerkApi;
 
-use Redbitcz\MerkApi\Response\IResponse;
+use Redbitcz\MerkApi\Exception\NotFoundException;
 
 class Merk
 {
@@ -15,8 +15,14 @@ class Merk
         $this->client = $client;
     }
 
-    public function getCompanyByRegNo(string $ic): IResponse
+    public function getCompanyByRegNo(string $regno): Response
     {
-        return $this->client->requestGet('company/', ['regno'=> $ic]);
+        $response = $this->client->requestGet('company/', ['regno' => $regno]);
+
+        if($response->isNoContent()) {
+            throw new NotFoundException('No company found', 404, $response);
+        }
+
+        return $response;
     }
 }
