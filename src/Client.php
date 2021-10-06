@@ -117,7 +117,7 @@ class Client
         $response = new Response((string)$responseContent, $responseHeaders, curl_getinfo($curl, CURLINFO_HTTP_CODE));
         curl_close($curl);
 
-        if ($response->isEmpty()) {
+        if ($response->isNoContent()) {
             return $response;
         }
 

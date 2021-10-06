@@ -19,7 +19,7 @@ class Merk
     {
         $response = $this->client->requestGet('company/', ['regno' => $regno]);
 
-        if($response->isEmpty()) {
+        if($response->isNoContent()) {
             throw new NotFoundException('No company found', 404, $response);
         }
 

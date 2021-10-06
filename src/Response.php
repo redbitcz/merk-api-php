@@ -34,9 +34,9 @@ class Response
     /**
      * @return array<int|string, mixed>
      */
-    public function getJson(): array
+    public function getJsonContent(): array
     {
-        if($this->isEmpty()) {
+        if($this->isNoContent()) {
             return [];
         }
 
@@ -61,7 +61,12 @@ class Response
         return strcasecmp(trim($contentType), 'application/json') === 0;
     }
 
-    public function isEmpty(): bool
+    public function isOk(): bool
+    {
+        return $this->statusCode === 200;
+    }
+
+    public function isNoContent(): bool
     {
         return $this->statusCode === 204;
     }
