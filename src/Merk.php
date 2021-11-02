@@ -15,9 +15,15 @@ class Merk
         $this->client = $client;
     }
 
-    public function getCompanyByRegNo(string $regno): Response
+    /**
+     * @param string $countryCode 'cz' value is default by Merk API
+     */
+    public function getCompanyByRegNo(string $regno, string $countryCode = 'cz'): Response
     {
-        $response = $this->client->requestGet('company/', ['regno' => $regno]);
+        $response = $this->client->requestGet(
+            'company/',
+            ['regno' => $regno, 'country_code' => $countryCode]
+        );
 
         if ($response->isNoContent()) {
             throw new NotFoundException('No company found', 404, $response);
@@ -26,9 +32,15 @@ class Merk
         return $response;
     }
 
-    public function getSuggestByRegNo(string $regno): Response
+    /**
+     * @param string $countryCode 'cz' value is default by Merk API
+     */
+    public function getSuggestByRegNo(string $regno, string $countryCode = 'cz'): Response
     {
-        $response = $this->client->requestGet('suggest/', ['regno' => $regno]);
+        $response = $this->client->requestGet(
+            'suggest/',
+            ['regno' => $regno, 'country_code' => $countryCode]
+        );
 
         if ($response->isNoContent()) {
             throw new NotFoundException('No company found', 404, $response);
