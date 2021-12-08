@@ -26,7 +26,7 @@ class Merk
         );
 
         if ($response->isNoContent()) {
-            throw new NotFoundException('No company found', 404, $response);
+            throw new NotFoundException('No company found', 204, $response);
         }
 
         return $response;
@@ -43,7 +43,7 @@ class Merk
         );
 
         if ($response->isNoContent()) {
-            throw new NotFoundException('No company found', 404, $response);
+            throw new NotFoundException('No company found', 204, $response);
         }
 
         return $response;
